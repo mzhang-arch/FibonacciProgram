@@ -12,9 +12,11 @@ public class Fibonacci implements Fibonaccilike {
 
     // Methods
  public void calculate() {
+     System.out.println(number1);
+     System.out.println(number2);
     for(int i = amountofNumbersInSequence; i > 0; i = i - 1 ) {
      System.out.println(number2 + number1 );
-        int bob = number1 + number2;;
+     int bob = number1 + number2;;
     number1 = number2;
      number2 = bob;
 
