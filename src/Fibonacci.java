@@ -1,4 +1,5 @@
-public class Fibonacci implements Fibonaccilike {
+public class Fibonacci implements Fibonaccilike, Runnable {
+    private static final Object fibbLock = new Object();
     // Fields
     int amountofNumbersInSequence;
     int number1;
@@ -14,13 +15,27 @@ public class Fibonacci implements Fibonaccilike {
  public void calculate() {
      System.out.println(number1);
      System.out.println(number2);
-    for(int i = amountofNumbersInSequence; i > 0; i = i - 1 ) {
-     System.out.println(number2 + number1 );
-     int bob = number1 + number2;;
-    number1 = number2;
-     number2 = bob;
+     synchronized (fibbLock) {
+         for (int i = amountofNumbersInSequence - 2; i > 0; i = i - 1) {
+             System.out.println(number2 + number1);
+             int bob = number1 + number2;
 
+             try {
+                 Thread.sleep(200);
+             } catch (InterruptedException e) {
+                 throw new RuntimeException(e);
+             }
+
+             ;
+             number1 = number2;
+             number2 = bob;
+         }
+     }
+ }
+
+    public void run(){
+        calculate();
 
     }
-    }
+
 }
